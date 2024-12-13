@@ -13,7 +13,7 @@ public class SpawnerLayersSpheres : Spawner<LayerSpherePool>
         int maxQuantityInterlayers = 3;
 
         for (int i = 0; i < maxQuantityInterlayers; i++)
-        { 
+        {
             Create();
         }
     }

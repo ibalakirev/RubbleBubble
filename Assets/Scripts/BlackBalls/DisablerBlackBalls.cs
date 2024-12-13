@@ -8,22 +8,20 @@ public class DisablerBlackBalls : MonoBehaviour
 
     private void OnEnable()
     {
-        _disablerInterlayers.InterlayerDisabled += RemoveBlackSphere;
+        _disablerInterlayers.InterlayerDisabling += RemoveBlackSphere;
     }
 
     private void OnDisable()
     {
-        _disablerInterlayers.InterlayerDisabled -= RemoveBlackSphere;
+        _disablerInterlayers.InterlayerDisabling -= RemoveBlackSphere;
     }
 
-    private void RemoveBlackSphere()
+    private void RemoveBlackSphere(LayerSphere layerSphere)
     {
-        if(_disablerInterlayers.CurrentInterlayer != null)
+        for (int i = 0; i < layerSphere.BlackBalls.Count; i++)
         {
-            for (int i = 0; i < _disablerInterlayers.CurrentInterlayer.BlackBalls.Count; i++)
-            {
-                _coloredBallsPool.ReturnObject(_disablerInterlayers.CurrentInterlayer.BlackBalls[i]);
-            }
+            layerSphere.BlackBalls[i].FallDown();
         }
     }
 }
+

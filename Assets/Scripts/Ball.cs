@@ -10,13 +10,12 @@ public abstract class Ball : MonoBehaviour
 
     protected Rigidbody Rigidbody => _rigidBody;
     public Color Color => _color;
+
     private void OnEnable()
     {
         _renderer = GetComponent<Renderer>();
         _rigidBody = GetComponent<Rigidbody>();
         _meshRenderer = GetComponent<MeshRenderer>();
-
-        _rigidBody.isKinematic = true;
     }
 
     public void SetMaterial(Material material)
@@ -24,6 +23,11 @@ public abstract class Ball : MonoBehaviour
         _renderer.material = material;
 
         SetColor(_meshRenderer.material.color);
+    }
+
+    public void EnableKinematic()
+    {
+        Rigidbody.isKinematic = true;
     }
 
     protected void DisableKinematic()

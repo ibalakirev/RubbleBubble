@@ -15,6 +15,8 @@ public class SpawnerBullets : Spawner<BulletsPool>
 
         newProjectile.SetMaterial(_colorRandomizer.GetRandomMaterialProjectile());
 
+        newProjectile.EnableKinematic();
+
         ProjectileCreated?.Invoke(newProjectile);
 
         return newProjectile;

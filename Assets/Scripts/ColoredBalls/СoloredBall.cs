@@ -14,7 +14,7 @@ public class ColoredBall : Ball
     public bool IsCollision => _isCollision;
     public bool IsBlack => _isBlack;
 
-    private void Awake()
+    private void OnDisable()
     {
         _isCollision = false;
         _isBlack = false;

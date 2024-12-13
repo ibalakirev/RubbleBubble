@@ -7,12 +7,10 @@ public class LayersSpheresDisabler : MonoBehaviour
     [SerializeField] private LayerSpherePool _interlayerSpherePool;
     [SerializeField] private SpawnPointFirstLayerSphere _spawnPointFirstInterlayer;
 
-    private LayerSphere _currentInterlayer;
     private float _radius = 100f;
 
+    public event Action<LayerSphere> InterlayerDisabling;
     public event Action InterlayerDisabled;
-
-    public LayerSphere CurrentInterlayer => _currentInterlayer;
 
     private void Start()
     {
@@ -39,11 +37,11 @@ public class LayersSpheresDisabler : MonoBehaviour
                     {
                         if(layerSphere.ColoredBalls.Count == minQuantityColoredBalls)
                         {
-                            _currentInterlayer = layerSphere;
-
-                            InterlayerDisabled?.Invoke();
+                            InterlayerDisabling?.Invoke(layerSphere);
 
                             _interlayerSpherePool.ReturnObject(layerSphere);
+
+                            InterlayerDisabled?.Invoke();
                         }
                     }
                 }

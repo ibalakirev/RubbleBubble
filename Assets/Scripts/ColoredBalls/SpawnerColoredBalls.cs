@@ -20,21 +20,21 @@ public class SpawnerColoredBalls : Spawner<ColoredBallsPool>
 
     private void Create(LayerSphere layerSphere)
     {
-        for (int i = 0; i < layerSphere.BallsPositions.Count; i++)
-        {
-            Transform spawnPoint = layerSphere.BallsPositions[i].transform;
+        Vector3 defaultScaleColoredSphere = new Vector3(0.15f, 0.15f, 0.15f);
 
-            ColoredBall coloredSphere = ObjectsPool.GetObject(spawnPoint.position, Quaternion.identity);
+        for (int i = 0; i < layerSphere.SpawnPointsPositionsColoredBalls.Length; i++)
+        {
+            ColoredBall coloredSphere = ObjectsPool.GetObject(layerSphere.SpawnPointsPositionsColoredBalls[i], Quaternion.identity);
+
+            coloredSphere.EnableKinematic();
 
             SetMaterial(coloredSphere, _materialsRandomizer.GetRandomMaterialColoredBall());
 
-            TryAddSphere(coloredSphere, layerSphere);
-
             SetParent(coloredSphere, layerSphere.transform);
 
-            SetPosition(coloredSphere, spawnPoint.position);
+            TryAddSphere(coloredSphere, layerSphere);
 
-            SetLocalScale(coloredSphere, spawnPoint);
+            SetDefaultLocalScale(coloredSphere, defaultScaleColoredSphere);
 
             coloredSphere.SetLayerSphere(layerSphere);
 
@@ -73,13 +73,8 @@ public class SpawnerColoredBalls : Spawner<ColoredBallsPool>
         coloredSphere.transform.SetParent(parent, false);
     }
 
-    private void SetPosition(ColoredBall coloredSphere, Vector3 position)
+    private void SetDefaultLocalScale(ColoredBall coloredSphere, Vector3 scale)
     {
-        coloredSphere.transform.position = position;
-    }
-
-    private void SetLocalScale(ColoredBall coloredSphere, Transform scale)
-    {
-        coloredSphere.transform.localScale = scale.localScale;
+        coloredSphere.transform.localScale = scale;
     }
 }
